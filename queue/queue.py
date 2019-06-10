@@ -2,9 +2,6 @@ class Node:
     def __init__(self, value, next):
         self.value = value # 3 ==>    3, 5
         self.next = next   # None ==> 5, none
-    
-    def change_next(self, new_next)
-        self.next = new_next
 
 class LinkedList:
     def __init__(self):
@@ -15,7 +12,7 @@ class LinkedList:
           
         new_node = Node(item) # new_node.value = 5
                               # new_node.next = none
-        if not self.head and not self.tail:
+        if not self.tail:
             self.head = new_node
             self.tail = new_node
         else:
@@ -23,7 +20,10 @@ class LinkedList:
             self.tail = self.tail.next # tail = 5
     
     def remove_from_front(self):
-        pass
+        if self.head:
+            removed_node = self.head
+            self.head = self.head.next
+            return removed_node.value
     
     def get_length(self):
         pass
@@ -34,10 +34,10 @@ class Queue:
     self.storage = LinkedList()
 
   def enqueue(self, item):
-    pass
+    self.storage.add_to_back(item)
   
   def dequeue(self):
-    pass
+    self.storage.remove_from_front()
 
   def len(self):
     pass
