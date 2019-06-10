@@ -10,13 +10,13 @@ class LinkedList:
                           # 5
     def add_to_back(self, item):
           
-        new_node = Node(item) # new_node.value = 5
+        added_node = Node(item) # new_node.value = 5
                               # new_node.next = none
         if not self.tail:
-            self.head = new_node
-            self.tail = new_node
+            self.head = added_node
+            self.tail = added_node
         else:
-            self.tail.next = new_node # next = 5
+            self.tail.next = added_node # next = 5
             self.tail = self.tail.next # tail = 5
     
     def remove_from_front(self):
@@ -24,9 +24,8 @@ class LinkedList:
             removed_node = self.head
             self.head = self.head.next
             return removed_node.value
-    
-    def get_length(self):
-        pass
+        else:
+            return "Cannot dequeue, queue is empty"
 
 class Queue:
   def __init__(self):
@@ -35,9 +34,11 @@ class Queue:
 
   def enqueue(self, item):
     self.storage.add_to_back(item)
+    self.size += 1
   
   def dequeue(self):
     self.storage.remove_from_front()
+    self.size -= 1
 
   def len(self):
-    pass
+    return self.size
