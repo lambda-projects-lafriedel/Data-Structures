@@ -38,7 +38,8 @@ class Queue:
   
   def dequeue(self):
     self.storage.remove_from_front()
-    self.size -= 1
+    if self.size > 0:
+        self.size -= 1
 
   def len(self):
-    return self.size
+      return self.size
