@@ -52,6 +52,7 @@ class DoublyLinkedList:
         self.head.prev = new_head
     # set self.head as new_head
     self.head = new_head
+    # increase length of DLL by 1
     self.length += 1
 
   def remove_from_head(self):
@@ -64,12 +65,21 @@ class DoublyLinkedList:
         # return removed_head
         return removed_head
     
+    # if length of DLL is greater than 0, decrease length by 1
     if self.length > 0:
         self.length -= 1
         
 
   def add_to_tail(self, value):
-    pass
+    # create new ListNode of avlue, with its prev value as the current tail
+    new_tail = ListNode(value, self.tail, None)
+    # set current tail's next as new tail
+    if self.tail is not None:
+        self.tail.next = new_tail
+    # set self.tail as new tail
+    self.tail = new_tail
+    # increase length of DLL by 1
+    self.length =+ 1
 
   def remove_from_tail(self):
     pass
