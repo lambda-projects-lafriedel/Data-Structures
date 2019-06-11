@@ -137,14 +137,18 @@ class DoublyLinkedList:
             self.length -= 1
       
     def get_max(self):
+        # if self.head is self.tail return self.head.value
+        if self.head is self.tail:
+            return self.head.value
+
         # store highest value in a variable
         highest_value = self.head.value
         # store self.head in a variable
-        current = self.head
+        current = self.head.next
         # while there's a next attribute that's not None, loop through and compare values
         while current:
         # if the value of each node is higher than the value stored in variable, change the variable
-            if current.value > current.prev.value
+            if current.value > current.prev.value:
                 highest_value = current.value
             current = current.next
         
