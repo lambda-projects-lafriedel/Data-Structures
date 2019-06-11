@@ -113,20 +113,23 @@ class DoublyLinkedList:
         return removed_tail.value
 
     def move_to_front(self, node):
+        # if node is tail, node's prev is a value and node's next is none // None 1 3 None
         new_head = node
         old_head = self.head
-        # set node's prev's next as node's next
-        node.prev.next = node.next
-        # set node's next's prev as node's prev
-        node.next.prev = node.prev
-        # set current head's prev as new_head
-        self.head.prev = new_head
-        # set self.head as new head
-        self.head = new_head
-        # set new self.head's next as old head
-        self.head.next = old_head
-        # set new self.head's prev to None
-        self.head.prev = None
+        if self.head is not None and self.tail is not None:
+            # set node's prev's next as node's next
+            node.prev.next = node.next
+            # set node's next's prev as node's prev
+            if node.next is not None:
+                node.next.prev = node.prev
+            # set current head's prev as new_head
+            self.head.prev = new_head
+            # set self.head as new head
+            self.head = new_head
+            # set new self.head's next as old head
+            self.head.next = old_head
+            # set new self.head's prev to None
+            self.head.prev = None
 
     def move_to_end(self, node):
         new_tail = node
