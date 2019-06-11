@@ -2,18 +2,19 @@
 as well as its next node in the List."""
 class ListNode:
   def __init__(self, value, prev=None, next=None):
-    self.value = value
-    self.prev = prev
-    self.next = next
+    self.value = value # 2
+    self.prev = prev # 1
+    self.next = next # 3
 
   """Wrap the given value in a ListNode and insert it
   after this node. Note that this node could already
-  have a next node it is point to."""
-  def insert_after(self, value):
-    current_next = self.next
+  have a next node it is pointing to."""
+  def insert_after(self, value): # 4
+    current_next = self.next # 3
     self.next = ListNode(value, self, current_next)
-    if current_next:
-      current_next.prev = self.next
+    # 3 is now 4, and 4's next is now 3, so LL is 1, 2, 4, 3
+    if current_next: # if not None
+      current_next.prev = self.next # 3's prev is now 4 -- have to do this for the DLL
 
   """Wrap the given value in a ListNode and insert it
   before this node. Note that this node could already
@@ -44,16 +45,55 @@ class DoublyLinkedList:
     return self.length
 
   def add_to_head(self, value):
-    pass
+    # create new ListNode of value, with no prev value and its next value as the current head
+    new_head = ListNode(value, None, self.head)
+    # set current head's prev as new_head
+    if self.head is not None:
+        self.head.prev = new_head
+    # set self.head as new_head
+    self.head = new_head
+    # increase length of DLL by 1
+    self.length += 1
 
   def remove_from_head(self):
-    pass
+    if self.head is not None:
+        removed_head = self.head
+        # set the head as the current head's next
+        self.head = self.head.next
+        # set the newly set head's previous as None
+        self.head.prev = None
+        # return removed_head
+        return removed_head
+    
+    # if length of DLL is greater than 0, decrease length by 1
+    if self.length > 0:
+        self.length -= 1
+        
 
   def add_to_tail(self, value):
-    pass
+    # create new ListNode of avlue, with its prev value as the current tail
+    new_tail = ListNode(value, self.tail, None)
+    # set current tail's next as new tail
+    if self.tail is not None:
+        self.tail.next = new_tail
+    # set self.tail as new tail
+    self.tail = new_tail
+    # increase length of DLL by 1
+    self.length =+ 1
 
   def remove_from_tail(self):
-    pass
+    if self.tail is not None:
+        removed_tail = self.tail
+        # set the tail's prev as the new tail
+        self.tail = self.tail.prev
+        # set the new tail's next to None
+        self.tail.next = None
+        # return removed_tail
+        return removed_tail
+    
+    # if DLL's length is greater than 0, decrease length by 1
+    if self.length > 0:
+        self.length -= 1
 
   def move_to_front(self, node):
     pass
