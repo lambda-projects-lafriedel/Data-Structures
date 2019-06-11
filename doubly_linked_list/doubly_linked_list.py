@@ -97,11 +97,12 @@ class DoublyLinkedList:
             # set the new tail's next to None
             self.tail.next = None
             # return removed_tail
-            return removed_tail
         
         # if DLL's length is greater than 0, decrease length by 1
         if self.length > 0:
             self.length -= 1
+
+        return removed_tail.value
 
     def move_to_front(self, node):
         new_head = node
