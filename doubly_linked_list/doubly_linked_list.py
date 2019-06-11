@@ -111,10 +111,21 @@ class DoublyLinkedList:
         # set new self.head's prev to None
         self.head.prev = None
 
-       
-
     def move_to_end(self, node):
-        pass
+        new_tail = node
+        old_tail = self.tail
+        # set node's prev's next as node's next
+        node.prev.next = node.next
+        # set node's next prev as node's 
+        node.next.prev = node.prev
+        # set current tail's next as new_tail
+        self.tail.next = new_tail
+        # set self.tail as new_tail
+        self.tail = new_tail
+        # set new self.tail's prev as old_tail
+        self.tail.prev = old_tail
+        # set new self.tail's next to None
+        self.tail.next = None
 
     def delete(self, node):
         pass
