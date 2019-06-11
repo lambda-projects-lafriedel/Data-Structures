@@ -50,24 +50,32 @@ class DoublyLinkedList:
         # set current head's prev as new_head
         if self.head is not None:
             self.head.prev = new_head
+        elif self.head is None and self.tail is None:
+            self.head = new_head
+            self.tail = new_head
         # set self.head as new_head
         self.head = new_head
         # increase length of DLL by 1
         self.length += 1
 
     def remove_from_head(self):
-        if self.head is not None:
-            removed_head = self.head
+        removed_head = self.head
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+        elif self.head is not None:
+            new_head = self.head.next
             # set the head as the current head's next
-            self.head = self.head.next
+            self.head = new_head
             # set the newly set head's previous as None
             self.head.prev = None
             # return removed_head
-            return removed_head
         
         # if length of DLL is greater than 0, decrease length by 1
         if self.length > 0:
             self.length -= 1
+        
+        return removed_head.value
           
 
     def add_to_tail(self, value):
@@ -96,12 +104,12 @@ class DoublyLinkedList:
             self.tail = new_tail
             # set the new tail's next to None
             self.tail.next = None
-            # return removed_tail
         
         # if DLL's length is greater than 0, decrease length by 1
         if self.length > 0:
             self.length -= 1
 
+        # return removed_tail
         return removed_tail.value
 
     def move_to_front(self, node):
