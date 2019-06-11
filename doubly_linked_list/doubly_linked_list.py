@@ -132,37 +132,64 @@ class DoublyLinkedList:
             self.head.prev = None
 
     def move_to_end(self, node):
-        new_tail = node
-        old_tail = self.tail
-        # set node's prev's next as node's next
-        node.prev.next = node.next
-        # set node's next prev as node's prev
-        node.next.prev = node.prev
-        # set current tail's next as new_tail
-        self.tail.next = new_tail
-        # set self.tail as new_tail
-        self.tail = new_tail
-        # set new self.tail's prev as old_tail
-        self.tail.prev = old_tail
-        # set new self.tail's next to None
-        self.tail.next = None
+        value = node.value
+        # Return if already trying to move the tail to the end
+        if node is self.tail:
+            return
+        if node is self.head:
+            self.remove_from_head()
+            self.add_to_tail(value)
+        else:
+            node.delete()
+            self.add_to_tail(value)
+        # new_tail = node # 40 next: 4 prev: 1
+        # old_tail = self.tail # 1
+        # if self.head is not None and self.tail is not None:
+        #     # set node's next prev as node's prev
+        #     # set node's prev's next as node's next
+        #     if node.prev is not None:
+        #         print("PRINT IN MTE:", node.next, node.prev)
+        #         node.next.prev = node.prev
+        #         node.prev.next = node.next
+        #     else:
+        #         node.next.prev = None
+        #     # set current tail's next as new_tail
+        #     self.tail.next = new_tail
+        #     # set self.tail as new_tail
+        #     self.tail = new_tail
+        #     # set new self.tail's prev as old_tail
+        #     self.tail.prev = old_tail
+        #     # set new self.tail's next to None
+        #     self.tail.next = None
 
     def delete(self, node):
-        if not node.prev and not node.next:
-            self.head = None
-            self.tail = None
-            
-        if node.prev is not None:
-            # set node's prev's next as node's next
+
+        if node is self.tail:
+            self.remove_from_tail()
+        elif node is self.head:
+            self.remove_from_head()
+        else:
             node.prev.next = node.next
-        
-        # set node's next's prev as node's prev
-        if node.next is not None:
             node.next.prev = node.prev
+            if self.length > 0:
+                self.length -= 1
+        # if not node.prev and not node.next:
+        #     self.head = None
+        #     self.tail = None
+            
+        # if node.prev is not None:
+        #     # set node's prev's next as node's next
+        #     node.prev.next = node.next
+        # else:
+        #     node.next.prev = None
+        
+        # # set node's next's prev as node's prev
+        # if node.next is not None:
+        #     node.next.prev = node.prev
+        # else:
+        #     node.prev.next = None
             
         # decrease length by 1
-        if self.length > 0:
-            self.length -= 1
       
     def get_max(self):
         # if self.head is self.tail return self.head.value
