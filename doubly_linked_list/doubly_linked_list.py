@@ -76,16 +76,24 @@ class DoublyLinkedList:
         # set current tail's next as new tail
         if self.tail is not None:
             self.tail.next = new_tail
+        elif self.tail is None and self.head is None:
+            self.tail = new_tail
+            self.head = new_tail
         # set self.tail as new tail
         self.tail = new_tail
         # increase length of DLL by 1
-        self.length =+ 1
+        self.length += 1
 
     def remove_from_tail(self):
-        if self.tail is not None:
-            removed_tail = self.tail
+        removed_tail = self.tail
+
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+        elif self.tail is not None:
+            new_tail = self.tail.prev
             # set the tail's prev as the new tail
-            self.tail = self.tail.prev
+            self.tail = new_tail
             # set the new tail's next to None
             self.tail.next = None
             # return removed_tail
@@ -128,10 +136,18 @@ class DoublyLinkedList:
         self.tail.next = None
 
     def delete(self, node):
-        # set node's prev's next as node's next
-        node.prev.next = node.next
+        if not node.prev and not node.next:
+            self.head = None
+            self.tail = None
+            
+        if node.prev is not None:
+            # set node's prev's next as node's next
+            node.prev.next = node.next
+        
         # set node's next's prev as node's prev
-        node.next.prev = node.prev
+        if node.next is not None:
+            node.next.prev = node.prev
+            
         # decrease length by 1
         if self.length > 0:
             self.length -= 1
