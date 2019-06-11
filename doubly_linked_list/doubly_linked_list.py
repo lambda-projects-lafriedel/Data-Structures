@@ -116,7 +116,7 @@ class DoublyLinkedList:
         old_tail = self.tail
         # set node's prev's next as node's next
         node.prev.next = node.next
-        # set node's next prev as node's 
+        # set node's next prev as node's prev
         node.next.prev = node.prev
         # set current tail's next as new_tail
         self.tail.next = new_tail
@@ -128,7 +128,25 @@ class DoublyLinkedList:
         self.tail.next = None
 
     def delete(self, node):
-        pass
+        # set node's prev's next as node's next
+        node.prev.next = node.next
+        # set node's next's prev as node's prev
+        node.next.prev = node.prev
+        # decrease length by 1
+        if self.length > 0:
+            self.length -= 1
       
     def get_max(self):
-        pass
+        # store highest value in a variable
+        highest_value = self.head.value
+        # store self.head in a variable
+        current = self.head
+        # while there's a next attribute that's not None, loop through and compare values
+        while current:
+        # if the value of each node is higher than the value stored in variable, change the variable
+            if current.value > current.prev.value
+                highest_value = current.value
+            current = current.next
+        
+        # return the variable
+        return highest_value
