@@ -4,24 +4,30 @@ class Heap:
 
   def insert(self, value):
     pass
-    # if inserted value is larger than the root, place it as new root
+    # adds input value to heap into correct spot
+    # append value to the end of the list
+    self.storage.append(value)
+    # utilize bubble_up
+    self._bubble_up(len(self.storage) - 1)
 
   def delete(self):
-    pass
-    # if root, next highest number needs to bubble up to root
-    # store ref to first element, and move last num in array to first index and pop the last value off
-    # check max spot's two children using formulas, and if either or both values are higher than the parent, swap the highest num with old max spot
-    # keep checking until neither child node is equal or greater than OR it has no children
+    # store ref to first element, to be returned
+    max_elem = self.storage.pop(0)
+    # move last num in array to first index and pop the last value off
+    last_elem = self.storage.pop()
+    self.storage.insert(0, last_elem)
+    # call sift_down
+    self._sift_down(0)
 
   def get_max(self):
-    pass
     # return first element
+    return self.storage[0]
 
   def get_size(self):
-    pass
+    # return length of self.storage
+    return len(self.storage)
 
   def _bubble_up(self, index):
-      # keep bubbling up until the top of the heap is reached, or the parent is higher priority
       while index > 0:
           # while index is > 0, get parent index and compare
           p_index = (index - 1) // 2
@@ -34,7 +40,6 @@ class Heap:
               break
 
   def _sift_down(self, index):
-      # keep sifting down until the bottom of the heap is reached, or the child is a lower priority
       # while index is less than the length of self.storage
       while index < len(self.storage):
       # get the left and right child indices
@@ -59,5 +64,3 @@ class Heap:
                    index = l_index
           else:
             break
-
-      # set index as value of the index it was switched to, since that's its new location
