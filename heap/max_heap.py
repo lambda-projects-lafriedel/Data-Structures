@@ -3,7 +3,6 @@ class Heap:
     self.storage = []
 
   def insert(self, value):
-    pass
     # adds input value to heap into correct spot
     # append value to the end of the list
     self.storage.append(value)
