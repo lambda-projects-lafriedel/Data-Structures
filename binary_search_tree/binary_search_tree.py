@@ -45,8 +45,17 @@ class BinarySearchTree:
               return self.right.contains(target)
 
   def get_max(self):
-    pass
-    # returns maximum value in BST
+      # if self.right and self.left == None, return self.value
+      if not self.right and not self.left:
+          return self.value
+      # store current node in a variable
+      node = self
+      # while there's a right node (meaning a larger value), traverse down the tree into self.right
+      while node.right is not None:
+          node = node.right
+
+      # when there's no longer a self.right, return self.value
+      return node.value
 
   def for_each(self, cb):
     pass
