@@ -9,12 +9,12 @@ class ListNode:
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
     have a next node it is pointing to."""
-    def insert_after(self, value): # 4
-        current_next = self.next # 3
+    def insert_after(self, value):
+        current_next = self.next
         self.next = ListNode(value, self, current_next)
-        # 3 is now 4, and 4's next is now 3, so LL is 1, 2, 4, 3
+
         if current_next: # if not None
-            current_next.prev = self.next # 3's prev is now 4 -- have to do this for the DLL
+            current_next.prev = self.next
 
     """Wrap the given value in a ListNode and insert it
     before this node. Note that this node could already
@@ -48,10 +48,9 @@ class DoublyLinkedList:
         # create new ListNode of value, with no prev value and its next value as the current head
         new_head = ListNode(value, None, self.head)
         # set current head's prev as new_head
-        if self.head is not None:
+        if self.head:
             self.head.prev = new_head
-        elif self.head is None and self.tail is None:
-            self.head = new_head
+        elif not self.head and not self.tail:
             self.tail = new_head
         # set self.head as new_head
         self.head = new_head
@@ -63,7 +62,7 @@ class DoublyLinkedList:
         if self.head is self.tail:
             self.head = None
             self.tail = None
-        elif self.head is not None:
+        elif self.head:
             new_head = self.head.next
             # set the head as the current head's next
             self.head = new_head
@@ -82,10 +81,9 @@ class DoublyLinkedList:
         # create new ListNode of value, with its prev value as the current tail
         new_tail = ListNode(value, self.tail, None)
         # set current tail's next as new tail
-        if self.tail is not None:
+        if self.tail:
             self.tail.next = new_tail
-        elif self.tail is None and self.head is None:
-            self.tail = new_tail
+        elif not self.tail and not self.head:
             self.head = new_tail
         # set self.tail as new tail
         self.tail = new_tail
@@ -113,23 +111,17 @@ class DoublyLinkedList:
         return removed_tail.value
 
     def move_to_front(self, node):
-        # if node is tail, node's prev is a value and node's next is none // None 1 3 None
-        new_head = node
-        old_head = self.head
-        if self.head is not None and self.tail is not None:
-            # set node's prev's next as node's next
-            node.prev.next = node.next
-            # set node's next's prev as node's prev
-            if node.next is not None:
-                node.next.prev = node.prev
-            # set current head's prev as new_head
-            self.head.prev = new_head
-            # set self.head as new head
-            self.head = new_head
-            # set new self.head's next as old head
-            self.head.next = old_head
-            # set new self.head's prev to None
-            self.head.prev = None
+        value = node.value
+
+        if node is self.head:
+            return
+    
+        if node is self.tail:
+            self.remove_from_tail()
+            self.add_to_head(value)
+        else:
+            self.delete(node)
+            self.add_to_head(value)
 
     def move_to_end(self, node):
         value = node.value
@@ -151,8 +143,7 @@ class DoublyLinkedList:
         elif node is self.head:
             self.remove_from_head()
         else:
-            node.prev.next = node.next
-            node.next.prev = node.prev
+            node.delete()
             if self.length > 0:
                 self.length -= 1
       
