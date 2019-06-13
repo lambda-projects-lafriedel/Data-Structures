@@ -29,7 +29,7 @@ class LinkedList:
             self.tail = None
             return front_node.value
 
-        front_node = self.head # 3
+        front_node = self.head
         self.head = front_node.next
         return front_node.value
 
