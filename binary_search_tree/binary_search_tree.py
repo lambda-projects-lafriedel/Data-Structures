@@ -5,8 +5,7 @@ class BinarySearchTree:
     self.right = None
 
   def insert(self, value):
-      # adds input value to the binary search tree
-      #check if value is less than our current node's value
+      # check if value is less than our current node's value
       if value < self.value:
           # if there's no left child, place new node here, else perform insert again
           if not self.left:
